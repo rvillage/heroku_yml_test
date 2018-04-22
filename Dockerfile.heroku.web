@@ -14,7 +14,7 @@ RUN adduser -D rails
 USER rails
 WORKDIR /usr/src/app
 
-COPY . /usr/src/app
+COPY --chown=rails . /usr/src/app
 RUN bundle install --jobs=4
 RUN yarn install && rails webpacker:compile
 
