@@ -5,9 +5,8 @@ RUN apk --update add --no-cache \
       nodejs yarn
 WORKDIR /usr/src/app
 COPY . /usr/src/app
-RUN bundle install --without development test --jobs=4
-RUN yarn install \
-  && NODE_ENV=production rails webpacker:compile
+RUN bundle install -j4
+RUN yarn install && rails webpacker:compile
 
 
 FROM ruby:2.5.1-alpine3.7
