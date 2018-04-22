@@ -1,0 +1,19 @@
+default: &default
+  adapter:  postgresql
+  encoding: utf-8
+  host:     <%= ENV.fetch('DATABASE_HOST') { 'db' } %>
+  username: postgres
+  password: ''
+  pool:     <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: heroku_yml_test_dev
+
+test:
+  <<: *default
+  database: heroku_yml_test_test
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>

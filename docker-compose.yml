@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:10.3-alpine
+    container_name: heroku_yml_test_db
+    environment:
+      TZ: Asia/Tokyo
+    volumes:
+      - ./docker/postgresql/volume:/var/lib/postgresql/data
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    image: rvillage/heroku_yml_test:0.0.1
+    container_name: heroku_yml_test_web
+    command: rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - '3000:3000'
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
+
+  pgweb:
+    image: rvillage/pgweb:0.9-alpine
+    container_name: heroku_yml_test_pgweb
+    command: ["--url", "postgres://postgres:admin@db?sslmode=disable"]
+    ports:
+      - '8081:8081'
+    depends_on:
+      - db
