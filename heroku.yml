@@ -1,0 +1,7 @@
+build:
+  docker:
+    web: Dockerfile.heroku.web
+release:
+  image: web
+  command:
+    - rails db:migrate
