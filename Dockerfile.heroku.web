@@ -1,31 +1,21 @@
-FROM ruby:2.5.1-alpine3.7 AS setup
-RUN apk --update add --no-cache \
-      build-base libxml2-dev libxslt-dev linux-headers \
-      curl postgresql-dev tzdata \
-      nodejs yarn
-WORKDIR /usr/src/app
-COPY . /usr/src/app
-RUN bundle install -j4
-RUN yarn install && rails webpacker:compile
-
-
 FROM ruby:2.5.1-alpine3.7
 
 ENV LANG ja_JP.UTF-8
 
 RUN apk --update add --no-cache \
-      curl postgresql-dev \
-      nodejs
-RUN adduser -D rails
-
-WORKDIR /usr/src/app
-
-COPY --from=setup /usr/share/zoneinfo/ /usr/share/zoneinfo/
-COPY --from=setup --chown=rails /usr/local/bundle /usr/local/bundle
-COPY --from=setup --chown=rails /usr/src/app /usr/src/app
+      build-base libxml2-dev libxslt-dev linux-headers \
+      curl postgresql-dev tzdata \
+      nodejs yarn
 
 RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime \
   && echo "Asia/Tokyo" > /etc/timezone
+RUN adduser -D rails
 
 USER rails
+WORKDIR /usr/src/app
+
+COPY . /usr/src/app
+RUN bundle install --jobs=4
+RUN yarn install && rails webpacker:compile
+
 CMD ["puma", "-C", "config/puma.rb"]
