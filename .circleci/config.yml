@@ -7,6 +7,7 @@ jobs:
       - image: rvillage/heroku-cli:6.16-alpine
     steps:
       - checkout
+      - run: apk --update add --no-cache git openssh
       - run:
           name: Deploy Heroku
           command: git push -f https://heroku:${HEROKU_API_KEY}@git.heroku.com/${HEROKU_APP_NAME}.git HEAD:refs/heads/master
