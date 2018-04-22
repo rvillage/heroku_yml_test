@@ -8,7 +8,7 @@ default: &default
 
 development:
   <<: *default
-  database: heroku_yml_test_dev
+  url: <%= ENV['DATABASE_URL'] %>
 
 test:
   <<: *default
