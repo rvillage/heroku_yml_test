@@ -1,10 +1,8 @@
 build:
   languages:
     - ruby
-  config:
-    RAILS_ENV: development
 release:
   command:
     - bundle exec rails db:migrate
 run:
-  web: bundle exec rails server -b 0.0.0.0
+  web: RAILS_ENV=development bundle exec puma -C config/puma.rb
