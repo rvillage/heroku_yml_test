@@ -1,7 +1,10 @@
 build:
-  docker:
-    web: Dockerfile.heroku.web
+  languages:
+    - ruby
+  config:
+    RAILS_ENV: development
 release:
-  image: web
   command:
-    - bundle exec rake db:migrate
+    - bundle exec rails db:migrate
+run:
+  web: bundle exec rails server -b 0.0.0.0
