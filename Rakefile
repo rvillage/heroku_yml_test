@@ -6,5 +6,6 @@ require_relative 'config/application'
 Rails.application.load_tasks
 
 task log: :environment do
+  Rails.application.config.colorize_logging = false
   ActiveRecord::Base.logger = Logger.new(STDOUT)
 end
