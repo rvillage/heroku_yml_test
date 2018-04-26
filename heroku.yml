@@ -4,6 +4,4 @@ build:
 release:
   image: web
   command:
-    - echo "Exec else-block commands!"
-    - RAILS_ENV=development rails db:migrate
-    - rails -T
+    - RAILS_ENV=development rake log db:migrate
