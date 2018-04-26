@@ -5,7 +5,7 @@ ENV RAILS_LOG_TO_STDOUT 1
 
 RUN apk --update add --no-cache \
       build-base libxml2-dev libxslt-dev linux-headers \
-      bash curl postgresql-dev tzdata \
+      curl bash postgresql-dev tzdata \
       nodejs yarn
 RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime \
   && echo "Asia/Tokyo" > /etc/timezone
