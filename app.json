@@ -1,0 +1,17 @@
+{
+  "name": "heroku_yml_test",
+  "stack": "container",
+  "formation": {
+    "web": { "quantity": 1, "size": "free" }
+  },
+  "addons": [
+    { "plan": "heroku-postgresql:hobby-dev", "options": { "version": "10" } }
+  ],
+  "env": {
+    "HEROKU_APP_NAME": { "required": true },
+    "HEROKU_PARENT_APP_NAME": { "required": true }
+  },
+  "scripts": {
+    "postdeploy": "rake log db:seed"
+  }
+}
