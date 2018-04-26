@@ -28,4 +28,4 @@ RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime \
   && echo "Asia/Tokyo" > /etc/timezone
 
 USER rails
-CMD RAILS_ENV=development puma -C config/puma.rb
+CMD ["RAILS_ENV=development", "puma", "-C", "config/puma.rb"]
