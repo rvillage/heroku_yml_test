@@ -10,11 +10,7 @@ jobs:
       - run: apk --update add --no-cache git openssh
       - run:
           name: Deploy Heroku
-          command: |
-            heroku git:remote -a ${HEROKU_APP_NAME}
-            git push -f https://heroku:${HEROKU_API_KEY}@git.heroku.com/${HEROKU_APP_NAME}.git HEAD:refs/heads/master
-            sleep 5
-            heroku restart -a ${HEROKU_APP_NAME}
+          command: git push https://heroku:${HEROKU_API_KEY}@git.heroku.com/${HEROKU_APP_NAME}.git master
 
 workflows:
   version: 2
